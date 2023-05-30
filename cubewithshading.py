@@ -46,12 +46,27 @@ def draw_cube():
         (-1, 0, 0)
     )
 
+    colors = (
+        (1, 0, 0),
+        (0, 1, 0),
+        (0, 0, 1),
+        (1, 1, 0),
+        (1, 0, 1),
+        (0, 1, 1)
+    )
+
     glEnable(GL_BLEND)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
+    glShadeModel(GL_SMOOTH)
+
+    glEnable(GL_COLOR_MATERIAL)
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+
     glBegin(GL_QUADS)
-    for face, normal in zip(faces, normals):
+    for face, normal, color in zip(faces, normals, colors):
         glNormal3fv(normal)
+        glColor3fv(color)
         for vertex in face:
             glVertex3fv(vertices[vertex])
     glEnd()
